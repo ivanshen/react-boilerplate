@@ -1,0 +1,5 @@
+.DS_Store
+config/env.json
+model.pages
+node_modules
+public
