@@ -13,3 +13,4 @@ Provide your database url in `env_template.json` and save it as `env.json`. [mla
 - Username and password authentication using Passport.js
 - Encryption using bcrypt.
 - Internationalization using ReactIntl.
+- Logging using log4js
