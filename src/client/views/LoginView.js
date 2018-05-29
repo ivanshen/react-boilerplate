@@ -69,6 +69,7 @@ class LoginView extends React.Component {
 		return (
 			<div>
 				<NavBar />
+				<h2 id="login-header">Login</h2>
 				{message}
 				<div className="Login">
         			<form onSubmit={this.postCredentials}>

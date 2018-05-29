@@ -51,17 +51,17 @@ router.post('/signup', function(req, res) {
 					email: req.body.email,
 					password: hash
 				});
-				res.send({status: 200, message: 'User created', redirect: '/'});
+				res.send({status: 200, message: 'User created', redirect: '/login'});
 			});
 		}
 	})
 })
 
-router.get('/validate', function(req, res){
+router.get('/isAuthenticated', function(req, res){
 	if (req.user) {
-		res.send({status: 200, user: req.user.id});
+		res.status(200).send(req.user.id);
 	} else {
-		res.send({status: 401, user: null})
+		res.status(401).send(null);
 	}
 })
 passport.serializeUser(function(user, done) {

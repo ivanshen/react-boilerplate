@@ -1,5 +1,8 @@
 .login-error {
-	margin-left: 12em;
+	max-width: 25em;
+	text-align: center;
+	display: block;
+	margin: 0 auto;
 }
 @media all and (min-width: 480px) {
   .Login {
@@ -10,4 +13,9 @@
     margin: 0 auto;
     max-width: 320px;
   }
+}
+
+#login-header {
+	text-align: center;
+	margin-top: 3em;
 }

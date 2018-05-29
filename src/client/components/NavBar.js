@@ -8,22 +8,64 @@ class NavBar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			user: null
+			user: null,
+			loading: true,
 		}
+		this.signedInContent = this.signedInContent.bind(this);
+		this.signedOutContent = this.signedOutContent.bind(this);
 	}
 
 	componentDidMount() {
-		fetch(buildRequestUrl('validate'), { 
+		fetch(buildRequestUrl('isAuthenticated'), { 
 			method: "GET", 
 			headers: { "Content-Type": "application/json" },
 			credentials: "include"
 		}).then(res => {
-			return res.json();
-		}).then(res => {
-			this.setState({user: res.user});
+			if (res.status === 200) {
+				this.setState({ user: res.body, loading: false })
+			} else {
+				this.setState({ user: null, loading: false })
+			}
+			
 		}).catch(err => {
-			this.setState({user: null});
+			this.setState({ user: null, loading: false });
 		})
+	}
+
+	signedInContent() {
+		return (
+			<div>
+				<Nav>
+			        <NavItem href="#"><FormattedMessage id="catalog"></FormattedMessage></NavItem>
+			        <NavItem href="#"><FormattedMessage id="post"></FormattedMessage></NavItem>
+		      	</Nav>
+		      	<Nav pullRight>
+		        	<NavDropdown title={<FormattedMessage id="yourAccount"></FormattedMessage>} id="basic-nav-dropdown">
+		          		<MenuItem><FormattedMessage id="rentedItems"></FormattedMessage></MenuItem>
+		          		<MenuItem><FormattedMessage id="rentedOutItems"></FormattedMessage></MenuItem>
+				        <MenuItem divider />
+				        <MenuItem ><FormattedMessage id="address"></FormattedMessage></MenuItem>
+				        <MenuItem ><FormattedMessage id="billing"></FormattedMessage></MenuItem>
+		        	</NavDropdown>
+		        	<NavItem href="logout"><FormattedMessage id="logout"></FormattedMessage></NavItem>
+		      	</Nav>
+      		</div>
+      	)
+	}
+
+	signedOutContent() {
+		return (
+			<div>
+		      	<Nav>
+			        <NavItem href="#"><FormattedMessage id="catalog"></FormattedMessage></NavItem>
+			        <NavItem href="#"><FormattedMessage id="about"></FormattedMessage></NavItem>
+		      	</Nav>
+		      	<Nav pullRight>
+		        	<NavItem href="login"><FormattedMessage id="login"></FormattedMessage></NavItem>
+		      		<NavItem href="signup"><FormattedMessage id="signup"></FormattedMessage></NavItem>
+		      	</Nav>
+	  		</div>
+	  	)
 	}
 
 	render() {
@@ -40,34 +82,8 @@ class NavBar extends Component {
 			    		</Navbar.Header>
 			    		<Navbar.Collapse>
 							{
-								this.state.user ?
-								<div>
-									<Nav>
-								        <NavItem href="#"><FormattedMessage id="catalog"></FormattedMessage></NavItem>
-								        <NavItem href="#"><FormattedMessage id="post"></FormattedMessage></NavItem>
-							      	</Nav>
-							      	<Nav pullRight>
-							        	<NavDropdown title={<FormattedMessage id="yourAccount"></FormattedMessage>} id="basic-nav-dropdown">
-							          		<MenuItem><FormattedMessage id="rentedItems"></FormattedMessage></MenuItem>
-							          		<MenuItem><FormattedMessage id="rentedOutItems"></FormattedMessage></MenuItem>
-									        <MenuItem divider />
-									        <MenuItem ><FormattedMessage id="address"></FormattedMessage></MenuItem>
-									        <MenuItem ><FormattedMessage id="billing"></FormattedMessage></MenuItem>
-							        	</NavDropdown>
-							        	<NavItem href="logout"><FormattedMessage id="logout"></FormattedMessage></NavItem>
-							      	</Nav>
-						      	</div>
-						      	:
-						      	<div>
-							      	<Nav>
-								        <NavItem href="#"><FormattedMessage id="catalog"></FormattedMessage></NavItem>
-								        <NavItem href="#"><FormattedMessage id="about"></FormattedMessage></NavItem>
-							      	</Nav>
-							      	<Nav pullRight>
-							        	<NavItem href="login"><FormattedMessage id="login"></FormattedMessage></NavItem>
-							      		<NavItem href="signup"><FormattedMessage id="signup"></FormattedMessage></NavItem>
-							      	</Nav>
-						      	</div>
+								!this.state.loading && 
+								(this.state.user ? this.signedInContent() : this.signedOutContent())
 					      	}
 			    		</Navbar.Collapse>
 			  		</Navbar>
