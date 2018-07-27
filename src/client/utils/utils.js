@@ -5,16 +5,7 @@ export const buildRequestUrl = (req) => {
 	return `${window.location.protocol}//${window.location.host}`
 }
 
-export const isLoggedIn = function() {
-	return fetch(buildRequestUrl('validate'), { 
-		method: "GET", 
-		headers: { "Content-Type": "application/json" },
-		credentials: "include"
-	}).then(res => {
-		return res.json();
-	}).then(res => {
-		return res;
-	}).catch(err => {
-		return err
-	})
+export const isValidateEmail = (email) => {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
 }

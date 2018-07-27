@@ -3,10 +3,9 @@ const LocalStrategy = require('passport-local').Strategy;
 const router = express.Router();
 const passport = require('passport');
 const mongoose = require('mongoose');
-const schema = require('../lib/schema');
+const schema = require('./schema');
 const account = mongoose.model('Account', schema.account);
-var bcrypt = require('bcrypt');
-const saltRounds = 10;
+var bcrypt = require('./bcrypt');
 passport.use(new LocalStrategy(function(username, password, done) {
 	account.findOne({email: username}, function(err, user) {
 		if (err) { return done(err); }
@@ -23,12 +22,12 @@ passport.use(new LocalStrategy(function(username, password, done) {
 
 function authenticate(req, res, next) {
 	passport.authenticate('local', function(err, user, info) {
-    if (err) { return next(err); }
-    if (!user) { return res.send({status: 401, message: 'Invalid username or password'}); }
-    req.logIn(user, function(err) {
-      if (err) { return next(err); }
-      return res.send({status: 200, redirect: '/'});
-    });
+	    if (err) return next(err);
+	    if (!user) return res.send({status: 401, message: 'Invalid username or password'});
+	    req.logIn(user, function(err) {
+	      if (err) { return next(err); }
+	      return res.send({status: 200, redirect: '/'});
+	    });
   })(req, res, next);
 }
 
@@ -46,10 +45,12 @@ router.post('/signup', function(req, res) {
 		if (count > 0) {
 			res.send({status: 302, message: 'User exists'});
 		} else {
-			bcrypt.hash(req.body.password, saltRounds).then(function(hash) {
+			bcrypt.hash(req.body.password).then(function(hash) {
 				account.collection.insert({
 					email: req.body.email,
-					password: hash
+					password: hash,
+					name: '',
+					country: '',
 				});
 				res.send({status: 200, message: 'User created', redirect: '/login'});
 			});

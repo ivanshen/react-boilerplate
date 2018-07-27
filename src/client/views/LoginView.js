@@ -3,7 +3,7 @@ import { FormControl, Button, Form, FormGroup, Col, ControlLabel, Checkbox }  fr
 import NavBar from '../components/NavBar';
 import ReactDOM from 'react-dom';
 import { buildRequestUrl } from '../utils/utils';
-import Message from '../components/message';
+import Message from '../components/MessageBox';
 import 'bootstrap/dist/css/bootstrap.css';
 class LoginView extends React.Component {
 	constructor(props) {

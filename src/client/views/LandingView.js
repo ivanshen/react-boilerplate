@@ -1,26 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { FormGroup, FormControl } from 'react-bootstrap';
 import NavBar from '../components/NavBar';
-import { isLoggedIn } from '../utils/utils'
+import { IntlProvider, FormattedMessage } from 'react-intl';
+import SearchBar from '../components/Landing/SearchBar';
+import locales from '../i18n/locales/LandingView';
+
 import 'bootstrap/dist/css/bootstrap.css';
 class LandingView extends React.Component {
+  onSearch() {
+
+  }
   render() {
+    const locale = (navigator.languages && navigator.languages[0]) || navigator.language || navigator.userLanguage || 'en-US';
     return (
-      <div>
-        <NavBar />
-        <form>
-          <FormGroup bsSize="large">
-            <FormControl type="text" placeholder="Large text" />
-          </FormGroup>
-          <FormGroup>
-            <FormControl type="text" placeholder="Normal text" />
-          </FormGroup>
-          <FormGroup bsSize="small">
-            <FormControl type="text" placeholder="Small text" />
-          </FormGroup>
-        </form>
-      </div>
+      <IntlProvider locale={locale} messages={locales[locale]}>
+        <div>
+          <NavBar />
+          <div className="search-header">
+            <FormattedMessage id="searchHeaderText"></FormattedMessage>
+          </div>
+          <div className="search-content">
+            <SearchBar fullWidth/>
+          </div>
+        </div>
+      </IntlProvider>
     )
   }
 }

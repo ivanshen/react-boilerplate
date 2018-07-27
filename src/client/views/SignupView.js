@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
 import { buildRequestUrl } from '../utils/utils';
-import Message from '../components/message';
+import Message from '../components/MessageBox';
 import NavBar from '../components/NavBar';
 import { IntlProvider, FormattedMessage } from 'react-intl';
 import i18n from '../i18n/i18n'

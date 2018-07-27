@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Alert } from 'react-bootstrap';
-class Message extends React.Component {
+export default class Message extends React.Component {
 	constructor(props) {
 		super(props);
 	}
@@ -21,5 +21,4 @@ Message.propTypes = {
 	bsStyle: PropTypes.string,
 	onDismiss: PropTypes.func,
 	className: PropTypes.string
-}
-export default Message;
+};

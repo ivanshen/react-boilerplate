@@ -4,11 +4,12 @@ const path = require('path');
 module.exports = {
   // Tell webpack to start bundling our app at app/index.js
   entry: {
-    NavBarLoggedOut: path.join(__dirname, 'src', 'client', 'components', 'NavBarLoggedOut'),
-    NavBarLoggedIn: path.join(__dirname, 'src', 'client', 'components', 'NavBarLoggedIn'),
     home: path.join(__dirname, 'src', 'client', 'views', 'LandingView.js'), 
     login: path.join(__dirname, 'src', 'client', 'views', 'LoginView.js'),
     signup: path.join(__dirname, 'src', 'client', 'views', 'SignupView.js'),
+    userprofile: path.join(__dirname, 'src', 'client', 'views', 'UserProfile.js'),
+    catalog: path.join(__dirname, 'src', 'client', 'views', 'CatalogView.js'),
+    postitem: path.join(__dirname, 'src', 'client', 'views', 'PostItemView.js'),
     vendors: ['react']
   },
   // Output our app to the public/ directory
@@ -43,17 +44,32 @@ module.exports = {
       new HtmlWebpackPlugin({
           template : './src/server/views/home.pug',
           filename: './views/home.html',
-          inject   : false
+          inject: false
     }),
       new HtmlWebpackPlugin({
           template : './src/server/views/login.pug',
           filename: './views/login.html',
-          inject   : false
+          inject: false
     }),
       new HtmlWebpackPlugin({
           template : './src/server/views/signup.pug',
           filename: './views/signup.html',
-          inject   : false
+          inject: false
+    }),
+      new HtmlWebpackPlugin({
+          template: './src/server/views/userprofile.pug',
+          filename: './views/userprofile.html',
+          inject: false
+    }),
+      new HtmlWebpackPlugin({
+          template : './src/server/views/catalog.pug',
+          filename: './views/catalog.html',
+          inject: false
+    }),
+      new HtmlWebpackPlugin({
+          template: './src/server/views/postitem.pug',
+          filename: './views/postitem.html',
+          inject: false
     })
   ]
 }

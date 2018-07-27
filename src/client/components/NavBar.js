@@ -4,6 +4,7 @@ import {  Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 import { buildRequestUrl } from '../utils/utils';
 import { IntlProvider, FormattedMessage } from 'react-intl';
 import locales from '../i18n/locales/NavBar';
+import 'bootstrap/dist/css/bootstrap.css';
 class NavBar extends Component {
 	constructor(props) {
 		super(props);
@@ -36,18 +37,17 @@ class NavBar extends Component {
 		return (
 			<div>
 				<Nav>
-			        <NavItem href="#"><FormattedMessage id="catalog"></FormattedMessage></NavItem>
-			        <NavItem href="#"><FormattedMessage id="post"></FormattedMessage></NavItem>
+			        <NavItem href="/catalog"><FormattedMessage id="catalog"></FormattedMessage></NavItem>
+			        <NavItem href="/postitem"><FormattedMessage id="post"></FormattedMessage></NavItem>
 		      	</Nav>
 		      	<Nav pullRight>
 		        	<NavDropdown title={<FormattedMessage id="yourAccount"></FormattedMessage>} id="basic-nav-dropdown">
-		          		<MenuItem><FormattedMessage id="rentedItems"></FormattedMessage></MenuItem>
-		          		<MenuItem><FormattedMessage id="rentedOutItems"></FormattedMessage></MenuItem>
+		          		<MenuItem href="/userprofile"><FormattedMessage id="User settings"></FormattedMessage></MenuItem>
 				        <MenuItem divider />
 				        <MenuItem ><FormattedMessage id="address"></FormattedMessage></MenuItem>
 				        <MenuItem ><FormattedMessage id="billing"></FormattedMessage></MenuItem>
 		        	</NavDropdown>
-		        	<NavItem href="logout"><FormattedMessage id="logout"></FormattedMessage></NavItem>
+		        	<NavItem href="/logout"><FormattedMessage id="logout"></FormattedMessage></NavItem>
 		      	</Nav>
       		</div>
       	)
@@ -57,7 +57,7 @@ class NavBar extends Component {
 		return (
 			<div>
 		      	<Nav>
-			        <NavItem href="#"><FormattedMessage id="catalog"></FormattedMessage></NavItem>
+			        <NavItem href="/catalog"><FormattedMessage id="catalog"></FormattedMessage></NavItem>
 			        <NavItem href="#"><FormattedMessage id="about"></FormattedMessage></NavItem>
 		      	</Nav>
 		      	<Nav pullRight>
@@ -69,7 +69,7 @@ class NavBar extends Component {
 	}
 
 	render() {
-		let locale = (navigator.languages && navigator.languages[0]) || navigator.language || navigator.userLanguage || 'en-US'
+		const locale = (navigator.languages && navigator.languages[0]) || navigator.language || navigator.userLanguage || 'en-US'
 		return (
 			<IntlProvider locale={locale} messages={locales[locale]}>
 				<div>

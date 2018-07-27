@@ -9,7 +9,6 @@ const logger = log4js.getLogger('app.js');
 const mongoose = require('mongoose');
 const env = require('../../config/env.json');
 const path = require('path');
-const routes = require('./routes/routes');
 const passport = require('passport');
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session);
@@ -48,7 +47,10 @@ mongoose.connect(env.database_url, {server: {socketOptions: {keepAlive: 1}}}, fu
 	}
 });
 
-app.use(routes);
+app.use(require('./routes/routes'));
+app.use(require('./routes/userprofile'));
+app.use(require('./routes/catalog'));
+//app.use(require('./routes/locationSelector'));
 app.use(authLib.routes);
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
